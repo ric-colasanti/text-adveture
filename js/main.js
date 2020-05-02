@@ -15,7 +15,6 @@ async function fetchHtmlAsText(url) {
 async  function getTemplate(elmt,page){
       let itm = document.getElementById(elmt);
       let address = "template/"+page+".html"
-      console.log(address);
       itm.innerHTML = await fetchHtmlAsText(address)
   }
 

@@ -81,13 +81,13 @@ body {
     border-width: 0.5px;
 }
 .card {
-    border: rgb(102, 102, 102);
+    border: rgb(139, 139, 139);
     border-style: solid;
     margin:5px;
     padding:5px;
 
     width: 98%;
-    border-radius: 5px;
+    border-radius: 10px;
     border-width: 0.5px;
     font-size:1.2vw;
   }
