@@ -1,3 +1,4 @@
+// opens the menu
 function navFunction() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -7,15 +8,18 @@ function navFunction() {
     }
   }
 
+
+// call to get the page   
 async function fetchHtmlAsText(url) {
     return await (await fetch(url)).text();
 }
 
-
+// get the html for the template puts in to the element with the id elmt
 async  function getTemplate(elmt,page){
       let itm = document.getElementById(elmt);
       let address = "template/"+page+".html"
       itm.innerHTML = await fetchHtmlAsText(address)
   }
 
-  getTemplate("itm","home")
+// Auto lod the home page  
+getTemplate("itm","home")
