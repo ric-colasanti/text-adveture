@@ -2,6 +2,7 @@
     --mainBackground: #f5f6f9;
     --mainDarkGray:#f2f2f2;
     --mainColor:rgb(109, 164, 209);
+    --mainColorDark:rgb(59, 114, 159);
     --mainLight:#fff;
 }
 
@@ -19,6 +20,30 @@ body {
     margin: 0px;
     background-color:var(--mainBackground);
 }
+
+ /* unvisited link */
+ a:link {
+    color:var(--mainColor);;
+    text-decoration: none;
+  }
+  
+  /* visited link */
+  a:visited {
+    color:var(--mainColor);;
+    text-decoration: none;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color:var(--mainColorDark);;
+    text-decoration: none;
+  }
+  
+  /* selected link */
+  a:active {
+    color:var(--mainColor);;
+    text-decoration: none;
+  } 
 
 .btn {
     border: none;
@@ -106,7 +131,7 @@ body {
 }
 
 .topnav div.active {
-    color: var(--mainColor);
+    color: var(--mainColorDark);
     font-weight: bold;
 }
 
