@@ -14,18 +14,15 @@
 
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home" class="active" onclick="getTemplate('itm','home')">Home</a>
-        <a href="#news" onclick="getTemplate('itm','test')">Test</a>
-        <a href="javascript:void(0);" class="icon" onclick="navFunction()">
+        <div id="home" class="active" onclick="getTemplate('itm','home')">Home</div>
+        <div id="test" onclick="getTemplate('itm','test')">Test</div>
+        <div id="table" onclick="getTemplate('itm','table')">Table</div>
+        <div id="hburger" class="icon" onclick="navFunction()">
             <i class="fa fa-bars"></i>
-        </a>
+        </div>
     </div>
-   
-    <div class="content">
-        <div id="itm"></div>
-    </div><!-- content -->
-
-
+   <div id="itm"></div>
+    
     <script src="js/main.js"></script>
 </body>
 
