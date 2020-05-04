@@ -10,18 +10,15 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
 <style>
-    :root {
-        --mainColor:rgb(157, 209, 109);
-        --mainColorDark:rgb(107, 159, 59);
-     }
+
 </style>
 </head>
 
 <body>
     <div class="topnav" id="myTopnav">
-        <div id="home" class="active" onclick="getTemplate('itm','home')">Home</div>
-        <div id="test" onclick="getTemplate('itm','test')">Test</div>
-        <div id="table" onclick="getTemplate('itm','table')">Table</div>
+        <div id="home" class="active" onclick="getTemplate('itm','home',test)">Home</div>
+        <div id="test" onclick="getTemplate('itm','test',noFunction)">Test</div>
+        <div id="table" onclick="getTemplate('itm','table',noFunction)">Table</div>
         <div id="hburger" class="icon" onclick="navFunction()">
             <i class="fa fa-bars"></i>
         </div>
@@ -29,6 +26,10 @@
    <div id="itm"></div>
     
     <script src="js/main.js"></script>
+    <script src="js/test.js"></script>
+    <script>
+        getTemplate("itm","home",test)
+    </script>
 </body>
 
 </html>

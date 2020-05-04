@@ -15,11 +15,14 @@ async function fetchHtmlAsText(url) {
 }
 
 // get the html for the template puts in to the element with the id elmt
-async  function getTemplate(elmt,page){
+async  function getTemplate(elmt,page,fun){
       let itm = document.getElementById(elmt);
       let address = "template/"+page+".html"
       itm.innerHTML = await fetchHtmlAsText(address)
+      fun()
   }
 
+var noFunction = function(){
+  
+}
 // Auto lod the home page  
-getTemplate("itm","home")
