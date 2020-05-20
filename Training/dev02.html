@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            font-family: "Lucida Sans", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        [class*="col-"] {
+            float: left;
+            padding: 15px;
+        }
+
+        .col-1 {
+            width: 8.33%;
+        }
+
+        .col-2 {
+            width: 16.66%;
+        }
+
+        .col-3 {
+            width: 25%;
+        }
+
+        .col-4 {
+            width: 33.33%;
+        }
+
+        .col-5 {
+            width: 41.66%;
+        }
+
+        .col-6 {
+            width: 50%;
+        }
+
+        .col-7 {
+            width: 58.33%;
+        }
+
+        .col-8 {
+            width: 66.66%;
+        }
+
+        .col-9 {
+            width: 75%;
+        }
+
+        .col-10 {
+            width: 83.33%;
+        }
+
+        .col-11 {
+            width: 91.66%;
+        }
+
+        .col-12 {
+            width: 100%;
+        }
+
+
+
+        .header {
+            background-color: #aebae2;
+            color: #ffffff;
+            padding: 15px;
+        }
+
+
+        .choice {
+            padding: 8px;
+            margin-bottom: 7px;
+            background-color: #ebebeb;
+            color: #000000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            cursor: pointer;
+        }
+
+        .journeylink {
+            cursor: pointer;
+        }
+
+        .info {
+            padding: 8px;
+            margin-bottom: 7px;
+            background-color: #ebebeb;
+            color: #000000;
+        }
+
+        .infotext {
+            padding: 8px;
+            margin-bottom: 7px;
+            color: #000000;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .choice:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        @media screen and (max-width: 500px) {
+            .col-1 {
+                width: 100%;
+            }
+
+            .col-2 {
+                width: 100%;
+            }
+
+            .col-3 {
+                width: 100%;
+            }
+
+            .col-4 {
+                width: 100%;
+            }
+
+            .col-5 {
+                width: 100%;
+            }
+
+            .col-6 {
+                width: 100%;
+            }
+
+            .col-7 {
+                width: 100%;
+            }
+
+            .col-8 {
+                width: 100%;
+            }
+
+            .col-9 {
+                width: 100%;
+            }
+
+            .col-10 {
+                width: 100%;
+            }
+
+            .col-11 {
+                width: 100%;
+            }
+
+            .col-12 {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Jack, is furloughed </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-3 menu">
+            <div class="card">
+                <div class="info">Path</div>
+                <div class="infotext">
+                    <ul id="journey">
+
+                    </ul>
+                </div>
+            </div>
+            <div id="information">
+
+            </div>
+        </div>
+
+        <div class="col-9">
+            <h1 id="title"></h1>
+            <div id="text">
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div id="choice1" class="choice" style="cursor: pointer;"></div>
+                </div>
+                <div class="col-4">
+                    <div id="choice2" class="choice"></div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <script>
+            active = 0;
+
+            function clickFactory(n) {
+                return function () {
+                    active = n
+                    active.show()
+                }
+            }
+            
+            function Fact(id, text) {
+                this.id = id;
+                this.text = text;
+            }
+
+            Fact.prototype.getHtml = function () {
+                return "<div class='card'><div class='info'>" + this.id + "</div><div class='infotext'>" + this
+                    .text + "</div></div>";
+            }
+
+
+            function Section(id) {
+                this.id = id;
+                this.facts = {}
+                this.html = ""
+                this.parent = null
+            }
+
+            Section.prototype.addFact = function (fact) {
+                this.facts[fact.id] = fact
+            }
+
+            Section.prototype.addLinkOne = function (text, link) {
+                this.linkOne = {
+                    text: text,
+                    link: link
+                }
+                if (link != null) {
+                    link.parent = this
+                }
+            }
+            Section.prototype.addLinkTwo = function (text, link) {
+                this.linkTwo = {
+                    text: text,
+                    link: link
+                }
+                if (link != null) {
+                    link.parent = this
+                }
+            }
+            Section.prototype.addText = function (txt) {
+                this.html += "<p>" + txt + "</p>"
+            }
+
+            Section.prototype.showJourney = function (itm) {
+                itm.innerHTML += "<li class='journeylink'>" + this.id + "</li>"
+                itm.addEventListener("click", clickFactory(this));
+                if (this.parent != null) {
+                    this.parent.showJourney(itm);
+                }
+            }
+
+            Section.prototype.show = function () {
+
+                let itm = document.getElementById("text")
+                itm.innerHTML = this.html;
+                itm = document.getElementById("title")
+                itm.innerHTML = this.id;
+                itm = document.getElementById("choice1");
+                itm.addEventListener("click", clickFactory(this.linkOne.link));
+                itm.innerHTML = this.linkOne.text
+                itm = document.getElementById("choice2");
+                itm.addEventListener("click", clickFactory(this.linkTwo.link));
+                itm.innerHTML = this.linkTwo.text;
+                itm = document.getElementById("information")
+                itm.innerHTML = "";
+                for (var key in this.facts) {
+                    itm.innerHTML += this.facts[key].getHtml();
+                }
+                itm = document.getElementById("journey")
+                itm.innerHTML = "";
+                this.showJourney(itm)
+            }
+
+            test1 = new Section("The email")
+            test1.addText(
+                "You’re Jack’s manager. You’ve had another difficult day as your company tries to keep up with new Covid-safe regulations. There’s a Skype meeting scheduled for 10 minutes’ time; you realize that your list of numbers doesn’t include Jack. You’ve just seen a new email from your manager. Do you"
+                )
+
+
+            test2 = new Section("Skype call")
+            test2.addText(
+                "The email from your manager is to alert you about the new system that HR is trialling this month. You tell your manager you’ll pass this on to relevant staff. You host the Skype meeting and add Jack to the next meeting in a fortnight’s time."
+                )
+            test2.addLinkOne("", null)
+            test2.addLinkTwo("", null)
+
+
+            test3 = new Section("The Chat")
+            test3.addText(
+                "The meeting is in progress; you ask Jack if he has any concerns. He says He’s worried that as he was taking paternity leave when he was furloughed, that he will get less money. You didn’t realise this was an issue."
+                )
+            test3.addText(
+                "After the meeting, you’re pleased to have spoken to Jack and send him the relevant information about his rights and the furlough scheme"
+                )
+            test3.addText("Do you consider that Jack’s concern has been addressed?")
+            test3.addFact(new Fact("Furlough fact",
+                "Factbox: Coronavirus Job Retention Scheme will continue until end of October furloughed workers across UK will continue to receive 80% of their current salary, up to £2,500"
+                ))
+
+            test4 = new Section("The One to One")
+            test4.addText(
+                "You’ve chosen to schedule a 1-1 with Jack. During this, he laughs a lot and says you probably feel he wasn’t working as much in the run-up to furlough, as he was taking it easy at home on paternity leave. You reassure him and joke about daytime TV, but note that he says he’s concerned about his job, as he hasn’t heard anything from the company until now. "
+                )
+            test4.addText(
+                "You have very little time for pastoral care, as Covid is a fast-changing environment for your company, but Jack is a valued employee, so you schedule a longer 1-1 with him, although Jack says that is unnecessary."
+                )
+            test4.addText(
+                "During this longer call, Jack opens up and says He is struggling with the adjustment to his routine, feels powerless to help with his partner who is breastfeeding. "
+                )
+            test4.addFact(new Fact("Path info", "PATH information about partners and perinatal depression"))
+
+            test3.addLinkOne("If yes, wait until the next meeting", test2)
+            test3.addLinkTwo(" If no, schedule a  1-1 with him.", test4)
+
+            test4.addLinkOne("", null)
+            test4.addLinkTwo("", null)
+
+
+            test1.addLinkOne(
+                "Read the email from your manager, then start the Skype meeting. You’ll add Jack to the next meeting",
+                test2)
+            test1.addLinkTwo("Add Jack to the meeting and make a note to ask him if he has any concerns.", test3)
+
+            active = test1
+            active.show()
+        </script>
+</body>
+
+</html>
